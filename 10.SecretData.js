@@ -1,21 +1,20 @@
-function secretData(arrStr) {
-    let text = arrStr.join("\n");
+function secretData(inputArr) {
+    let text = inputArr.join("\n");
+    let namePattern = /(\*[A-Z][A-Za-z]*)(?=\s|$|\.)/g;
+    let phonePattern = /(\+[\d\-]{10})(?=\s|$|\.)/g;
+    let idPattern = /(![A-Za-z\d]+)(?=\s|$|\.)/g;
+    let nameSecretPattern = /(_[A-Za-z\d]+)(?=\s|$|\.)/g;
 
-    let usernamePattern = /(\*[A-Z][a-zA-Z0-9]*)(?=\s|\t|$)/g;//using look ahead ?=
-    let phonePattern = /(\+([0-9\-]){1,10})(?=\s|\t|$)/g;
-    let idPattern = /(\![a-zA-Z0-9]*)(?=\s|\t|$)/g;
-    let basePattern = /(\_[a-zA-Z0-9]*)(?=\s|\t|$)/g;
-
-    text = text.replace(usernamePattern, replacer);
+    text = text.replace(namePattern, replacer);
     text = text.replace(phonePattern, replacer);
     text = text.replace(idPattern, replacer);
-    text = text.replace(basePattern, replacer);
-    console.log(text);
+    text = text.replace(nameSecretPattern, replacer);
 
     function replacer(match, gr1, gr2) {
-        return "|".repeat(gr1.length);
-        //console.log(gr1.length);
+        return '|'.repeat(gr1.length);
     }
+
+    console.log(text);
 }
 
 secretData([
